@@ -1,0 +1,6 @@
+Resources:
+    myvpc:
+        Type: AWS::EC2::VPC
+        DeletionPolicy: Retain
+        Properties:
+            CidrBlock: 10.0.0.1/16

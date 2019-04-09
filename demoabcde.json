@@ -1,0 +1,38 @@
+{
+"AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "",
+    "Metadata": {
+
+    },
+    "Parameters": {
+    
+    },
+    "Mappings": {
+
+    },
+    "Conditions": {
+
+    },
+    "Resources": {
+        "eip":{
+            "Type" : "AWS::EC2::EIP"
+            
+         }
+
+    },
+    "Outputs": {
+
+        "demoOutput":{
+            "Value":{
+                "Fn::Join" : [
+                    "",
+                    [
+                        {"Fn::GetAtt": ["eip","AllocationId"]},
+                        ":*"
+                    ]
+                ]
+            }
+        }
+
+    }
+}

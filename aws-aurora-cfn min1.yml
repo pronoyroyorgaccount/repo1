@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create the Aurora MySQL database(s)
+Parameters:
+  vpcid:
+    Type: AWS::EC2::VPC::Id
+
+  subnetids:
+    Type: List<AWS::EC2::Subnet::Id>
+
+Resources:
+  DBSecGrp:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: security group for RDS DB instances
+      VpcId: !Ref vpcid
+      
+  AuroraCluster:
+    Type: 'AWS::RDS::DBCluster'
+    Properties:
+      Engine: "aurora-mysql"          
+      EngineVersion: "5.7.12"
+      DBClusterIdentifier: mydemocluster2
+      MasterUsername: admin
+      MasterUserPassword: Passw0rd
+      DBSubnetGroupName: !Ref RdsSg
+      DatabaseName: "mydb123"
+      DBClusterParameterGroupName: default.aurora-mysql5.7
+      VpcSecurityGroupIds:
+        - !Ref DBSecGrp
+      
+  RdsSg:
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties: 
+      DBSubnetGroupDescription: 'demo subnet group'
+      SubnetIds: !Ref subnetids
+      
+
+      
+  
